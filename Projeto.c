@@ -27,9 +27,9 @@ void insereElemento(Tuser **h){
     antes=atual=(*h);
 
     novo = malloc(sizeof(Tuser));
-    printf("digite o nome do usuário\n");
+    printf("digite o nome do usuario\n");
     scanf("%[^\n]",novo->nomeUser);
-    printf("digite uma senha até 20 dígitos\n");
+    printf("digite uma senha ate 20 dígitos\n");
     scanf("%s",novo->senha);
     printf("digite o nome da empresa\n");
     scanf("%[^\n]",novo->empresa.nomeEmpresa);
