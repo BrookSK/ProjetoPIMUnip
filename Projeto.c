@@ -27,12 +27,26 @@ void insereElemento(Tuser **h){
     antes=atual=(*h);
 
     novo = malloc(sizeof(Tuser));
-    printf("digite o nome do usuario\n");
+    printf("Digite o nome do usuario\n");
     scanf("%[^\n]",novo->nomeUser);
-    printf("digite uma senha ate 20 dígitos\n");
+    printf("Digite uma senha ate 20 dígitos\n");
     scanf("%s",novo->senha);
-    printf("digite o nome da empresa\n");
+    printf("Digite o nome da empresa\n");
     scanf("%[^\n]",novo->empresa.nomeEmpresa);
+    printf("Digite os dados do responsavel\n");
+    scanf("%[^\n]",novo->empresa.dadosRespoel);
+    printf("Digite o CNPJ\n");
+    scanf("%[^\n]",novo->empresa.cnpj);
+    printf("Digite a razao social\n");
+    scanf("%[^\n]",novo->empresa.razaoSocial);
+    printf("Digite o nome fantasia\n");
+    scanf("%[^\n]",novo->empresa.nomeFantasia);
+    printf("Digite o telefone\n");
+    scanf("%[^\n]",novo->empresa.telefone);
+    printf("Digite o email\n");
+    scanf("%[^\n]",novo->empresa.email);
+    printf("Digite a data de abertura da empresa\n");
+    scanf("%[^\n]",novo->empresa.dataAbertura);
     
 
     if (!(*h))
