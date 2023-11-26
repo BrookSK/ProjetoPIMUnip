@@ -263,44 +263,34 @@ void criaValoresEdados(QuantidadeValor *dadosValores)
     printf("\n=== Cadastro de Valores ===\n");
 
     bool entradaValida = false;
-    while (!entradaValida)
-    {
-        printf("Digite a quantidade de residuos: ");
-        if (scanf("%d", &dadosValores->quantidadeResiduos[0]) != 1 || getchar() == '\n')
-        {
+    while (!entradaValida) {
+        printf("Digite a quantidade de resíduos: ");
+        if (scanf("%d", &dadosValores->quantidadeResiduos[0]) != 1) {
             printf("Entrada invalida. Digite um numero.\n");
             // Limpar o buffer do scanf para evitar loops infinitos
             int c;
             while ((c = getchar()) != '\n' && c != EOF);
-        }
-        else if (dadosValores->quantidadeResiduos[0] <= 0)
-        {
+        } else if (dadosValores->quantidadeResiduos[0] <= 0) {
             printf("Digite um valor maior que zero.\n");
-        }
-        else
-        {
+        } else {
             entradaValida = true;
+            while(getchar() != '\n'); // Limpar o buffer do scanf
         }
     }
 
     entradaValida = false;
-    while (!entradaValida)
-    {
+    while (!entradaValida) {
         printf("Digite o valor de custo: ");
-        if (scanf("%f", &dadosValores->valorCusto[0]) != 1 || getchar() == '\n')
-        {
+        if (scanf("%f", &dadosValores->valorCusto[0]) != 1) {
             printf("Entrada invalida. Digite um numero.\n");
             // Limpar o buffer do scanf para evitar loops infinitos
             int c;
             while ((c = getchar()) != '\n' && c != EOF);
-        }
-        else if (dadosValores->valorCusto[0] <= 0)
-        {
+        } else if (dadosValores->valorCusto[0] <= 0) {
             printf("Digite um valor maior que zero.\n");
-        }
-        else
-        {
+        } else {
             entradaValida = true;
+            while(getchar() != '\n'); // Limpar o buffer do scanf
         }
     }
 
@@ -531,7 +521,7 @@ void exibirMenuTodo()
         case 7:
             printf("Saindo do sistema...\n");
             printf("Sistema e documentacao desenvolvido por Lucas Vacari e Eduardo Kenzo\n");
-            printf("Versão do sistema 1.5.1\n");
+            printf("Versão do sistema 1.5.2\n");
             break;
         case 8:
             if (strlen(novoCliente.nomeResponsavel) > 0)
