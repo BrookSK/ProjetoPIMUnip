@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <locale.h>
+#include <stdbool.h>
 
 // Estruturas e funções anteriores...
 // Estrutura para representar os dados da indústria do cliente
@@ -21,6 +22,13 @@ typedef struct
     char dataAbertura[15];
     char dadosRelevantes[200];
 } DadosIndustriaCliente;
+
+// Estrutura para criar as variaveis de quantidade de residuos e valores de custo
+typedef struct
+{
+    int quantidadeResiduos[50];
+    float valorCusto[50];
+} QuantidadeValor;
 
 // Estrutura para representar um funcionário
 typedef struct
@@ -182,6 +190,53 @@ void cadastrarDadosIndustriaCliente(DadosIndustriaCliente *dadosCliente)
     printf("\nCadastro realizado com sucesso!\n");
 }
 
+// Craindo e setando valores ded quantidade de residuos e valores de custo
+void criaValoresEdados(QuantidadeValor *dadosValores)
+{
+    printf("\n=== Cadastro de Valores ===\n");
+
+    bool entradaValida = false;
+    while (!entradaValida)
+    {
+        printf("Digite a quantidade de residuos: ");
+        if (scanf("%d", &dadosValores->quantidadeResiduos[0]) != 1)
+        {
+            printf("Entrada inválida. Digite um número.\n");
+            // Limpar o buffer do scanf para evitar loops infinitos
+            int c;
+            while ((c = getchar()) != '\n' && c != EOF)
+                ;
+        }
+        else
+        {
+            entradaValida = true;
+        }
+    }
+
+    entradaValida = false;
+    while (!entradaValida)
+    {
+        printf("Digite o valor de custo: ");
+        if (scanf("%f", &dadosValores->valorCusto[0]) != 1)
+        {
+            printf("Entrada inválida. Digite um número.\n");
+            // Limpar o buffer do scanf para evitar loops infinitos
+            int c;
+            while ((c = getchar()) != '\n' && c != EOF)
+                ;
+        }
+        else
+        {
+            entradaValida = true;
+        }
+    }
+
+    criptografar((char *)&dadosValores->quantidadeResiduos[0], 9);
+    criptografar((char *)&dadosValores->valorCusto[0], 9);
+
+    printf("\nCadastro realizado com sucesso!\n");
+}
+
 // Função para atualizar as quantidades de resíduos ambientais
 void atualizarDadosMensais(int quantidadeResiduos, float valorCusto)
 {
@@ -246,6 +301,8 @@ void exibirMenuLogado()
 {
     int opcao;
     DadosIndustriaCliente novoCliente; // Declaração da variável para armazenar os dados do novo cliente
+    // Declaração da variável para armazenar os dados dos novos valores
+    QuantidadeValor dadosValores = {{0}, {0}}; // Inicializando com zero os valores
 
     printf("\n\nBem-vindo ao Menu Logado!\n");
 
@@ -254,12 +311,20 @@ void exibirMenuLogado()
         printf("\n=== Menu Logado ===\n");
         printf("1. Cadastrar Cliente\n");
         printf("2. Cadastrar Funcionário\n");
-        printf("3. Atualizar dados mensais\n");
+        printf("3. Cadastrar/Atualizar dados mensais\n");
         printf("4. Gerar relatório do cliente\n");
         printf("5. Gerar relatório global\n");
         printf("6. Logout\n");
         printf("Opção: ");
         scanf("%d", &opcao);
+
+        while (scanf("%d", &opcao) != 1)
+        {
+            printf("Entrada inválida. Digite um número das opções do meunu.\n");
+            // Limpar o buffer do scanf para evitar loops infinitos
+            int c;
+            while ((c = getchar()) != '\n' && c != EOF);
+        }
 
         switch (opcao)
         {
@@ -270,7 +335,17 @@ void exibirMenuLogado()
             cadastrarFuncionario();
             break;
         case 3:
-            printf("teste...\n");
+            if (dadosValores.quantidadeResiduos[0] != 0 && dadosValores.valorCusto[0] != 0)
+            {
+                descriptografar((char *)&dadosValores.quantidadeResiduos[0], 9);
+                descriptografar((char *)&dadosValores.valorCusto[0], 9);
+                atualizarDadosMensais(dadosValores.quantidadeResiduos[0], dadosValores.valorCusto[0]);
+            }
+            else
+            {
+                printf("Cadastre valores primeiro!\n");
+                criaValoresEdados(&dadosValores);
+            }
             break;
         case 4:
             printf("teste...\n");
@@ -293,6 +368,8 @@ void exibirMenuTodo()
 {
     int opcao;
     DadosIndustriaCliente novoCliente; // Declaração da variável para armazenar os dados do novo cliente
+    // Declaração da variável para armazenar os dados dos novos valores
+    QuantidadeValor dadosValores = {{0}, {0}}; // Inicializando com zero os valores
 
     printf("Bem-vindo ao Sistema de Gestão de Resíduos!\n");
 
@@ -302,13 +379,21 @@ void exibirMenuTodo()
         printf("1. Login\n");
         printf("2. Cadastrar Cliente\n");
         printf("3. Cadastrar Funcionário\n");
-        printf("4. Atualizar dados mensais\n");
+        printf("4. Cadastrar/Atualizar dados mensais\n");
         printf("5. Gerar relatório do cliente\n");
         printf("6. Gerar relatório global\n");
         printf("7. Sair do sistema\n");
         printf("8. Mostrar dados\n");
         printf("Opção: ");
         scanf("%d", &opcao);
+
+        while (scanf("%d", &opcao) != 1)
+        {
+            printf("Entrada inválida. Digite um número das opções do meunu.\n");
+            // Limpar o buffer do scanf para evitar loops infinitos
+            int c;
+            while ((c = getchar()) != '\n' && c != EOF);
+        }
 
         switch (opcao)
         {
