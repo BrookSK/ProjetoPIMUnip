@@ -458,6 +458,7 @@ void exibirMenuTodo()
         case 7:
             printf("Saindo do sistema...\n");
             printf("Sistema e documentacao desenvolvido por Lucas Vacari e Eduardo Kenzo\n");
+            printf("Versão do sistema 1.4\n");
             break;
         case 8:
             if (strlen(novoCliente.nomeResponsavel) > 0)
