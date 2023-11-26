@@ -161,95 +161,82 @@ void cadastrarFuncionario()
 void cadastrarDadosIndustriaCliente(DadosIndustriaCliente *dadosCliente)
 {
     printf("\n=== Cadastro de Dados da Industria do Cliente ===\n");
-    printf("Nome do Responsavel: ");
-    scanf(" %[^\n]s", dadosCliente->nomeResponsavel);
-    if (strlen(dadosCliente->nomeResponsavel) == 0 || strspn(dadosCliente->nomeResponsavel, " ") == strlen(dadosCliente->nomeResponsavel)) {
-        printf("Digite um nome de responsável válido: ");
-    }
+        // Nome do Responsável
+    do {
+        printf("Nome do Responsavel: ");
+        scanf(" %[^\n]", dadosCliente->nomeResponsavel);
     } while (strlen(dadosCliente->nomeResponsavel) == 0 || strspn(dadosCliente->nomeResponsavel, " ") == strlen(dadosCliente->nomeResponsavel));
 
-    printf("Nome da Empresa: ");
-    scanf(" %[^\n]s", dadosCliente->nomeEmpresa);
-    if (strlen(dadosCliente->nomeEmpresa) == 0 || strspn(dadosCliente->nomeEmpresa, " ") == strlen(dadosCliente->nomeEmpresa)) {
-        printf("Digite um nome da empresa válido: ");
-    }
+    // Nome da Empresa
+    do {
+        printf("Nome da Empresa: ");
+        scanf(" %[^\n]", dadosCliente->nomeEmpresa);
     } while (strlen(dadosCliente->nomeEmpresa) == 0 || strspn(dadosCliente->nomeEmpresa, " ") == strlen(dadosCliente->nomeEmpresa));
 
-    printf("CNPJ: ");
-    scanf(" %[^\n]s", dadosCliente->cnpj);
-    if (strlen(dadosCliente->cnpj) == 0 || strspn(dadosCliente->cnpj, " ") == strlen(dadosCliente->cnpj)) {
-        printf("Digite um CNPJ válido: ");
-    }
+    // CNPJ
+    do {
+        printf("CNPJ: ");
+        scanf(" %[^\n]", dadosCliente->cnpj);
     } while (strlen(dadosCliente->cnpj) == 0 || strspn(dadosCliente->cnpj, " ") == strlen(dadosCliente->cnpj));
 
-    printf("Razao Social: ");
-    scanf(" %[^\n]s", dadosCliente->razaoSocial);
-    if (strlen(dadosCliente->razaoSocial) == 0 || strspn(dadosCliente->razaoSocial, " ") == strlen(dadosCliente->razaoSocial)) {
-        printf("Digite uma razao social válido: ");
-    }
+    // Razão Social
+    do {
+        printf("Razao Social: ");
+        scanf(" %[^\n]", dadosCliente->razaoSocial);
     } while (strlen(dadosCliente->razaoSocial) == 0 || strspn(dadosCliente->razaoSocial, " ") == strlen(dadosCliente->razaoSocial));
 
-    printf("Nome Fantasia: ");
-    scanf(" %[^\n]s", dadosCliente->nomeFantasia);
-    if (strlen(dadosCliente->nomeFantasia) == 0 || strspn(dadosCliente->nomeFantasia, " ") == strlen(dadosCliente->nomeFantasia)) {
-        printf("Digite um nome fantasia válido: ");
-    }
+    // Nome Fantasia
+    do {
+        printf("Nome Fantasia: ");
+        scanf(" %[^\n]", dadosCliente->nomeFantasia);
     } while (strlen(dadosCliente->nomeFantasia) == 0 || strspn(dadosCliente->nomeFantasia, " ") == strlen(dadosCliente->nomeFantasia));
 
-    printf("Telefone: ");
-    scanf(" %[^\n]s", dadosCliente->telefone);
-    if (strlen(dadosCliente->telefone) == 0 || strspn(dadosCliente->telefone, " ") == strlen(dadosCliente->telefone)) {
-        printf("Digite um telefone válido: ");
-    }
+    // Telefone
+    do {
+        printf("Telefone: ");
+        scanf(" %[^\n]", dadosCliente->telefone);
     } while (strlen(dadosCliente->telefone) == 0 || strspn(dadosCliente->telefone, " ") == strlen(dadosCliente->telefone));
 
-    printf("Endereco: ");
-    scanf(" %[^\n]s", dadosCliente->endereco);
-    if (strlen(dadosCliente->endereco) == 0 || strspn(dadosCliente->endereco, " ") == strlen(dadosCliente->endereco)) {
-        printf("Digite um endereco válido: ");
-    }
+    // Endereco
+    do {
+        printf("Endereco: ");
+        scanf(" %[^\n]", dadosCliente->endereco);
     } while (strlen(dadosCliente->endereco) == 0 || strspn(dadosCliente->endereco, " ") == strlen(dadosCliente->endereco));
 
-    printf("Cidade: ");
-    scanf(" %[^\n]s", dadosCliente->cidade);
-    if (strlen(dadosCliente->cidade) == 0 || strspn(dadosCliente->cidade, " ") == strlen(dadosCliente->cidade)) {
-        printf("Digite uma cidade válido: ");
-    }
+    // Cidade
+    do {
+        printf("Cidade: ");
+        scanf(" %[^\n]", dadosCliente->cidade);
     } while (strlen(dadosCliente->cidade) == 0 || strspn(dadosCliente->cidade, " ") == strlen(dadosCliente->cidade));
 
-    printf("Estado: ");
-    scanf(" %[^\n]s", dadosCliente->estado);
-    if (strlen(dadosCliente->estado) == 0 || strspn(dadosCliente->estado, " ") == strlen(dadosCliente->estado)) {
-        printf("Digite um estado válido: ");
-    }
+    // Estado
+    do {
+        printf("Estado: ");
+        scanf(" %[^\n]", dadosCliente->estado);
     } while (strlen(dadosCliente->estado) == 0 || strspn(dadosCliente->estado, " ") == strlen(dadosCliente->estado));
 
-    printf("CEP: ");
-    scanf(" %[^\n]s", dadosCliente->cep);
-    if (strlen(dadosCliente->cep) == 0 || strspn(dadosCliente->cep, " ") == strlen(dadosCliente->cep)) {
-        printf("Digite um CEP válido: ");
-    }
+    // CEP
+    do {
+        printf("CEP: ");
+        scanf(" %[^\n]", dadosCliente->cep);
     } while (strlen(dadosCliente->cep) == 0 || strspn(dadosCliente->cep, " ") == strlen(dadosCliente->cep));
 
-    printf("E-mail: ");
-    scanf(" %[^\n]s", dadosCliente->email);
-    if (strlen(dadosCliente->email) == 0 || strspn(dadosCliente->email, " ") == strlen(dadosCliente->email)) {
-        printf("Digite um e-mail válido: ");
-    }
+    // Email
+    do {
+        printf("E-mail: ");
+        scanf(" %[^\n]", dadosCliente->email);
     } while (strlen(dadosCliente->email) == 0 || strspn(dadosCliente->email, " ") == strlen(dadosCliente->email));
 
-    printf("Data de Abertura: ");
-    scanf(" %[^\n]s", dadosCliente->dataAbertura);
-    if (strlen(dadosCliente->dataAbertura) == 0 || strspn(dadosCliente->dataAbertura, " ") == strlen(dadosCliente->dataAbertura)) {
-        printf("Digite uam data de abertura válido: ");
-    }
+    // Data de Abertura
+    do {
+        printf("Data de Abertura: ");
+        scanf(" %[^\n]", dadosCliente->dataAbertura);
     } while (strlen(dadosCliente->dataAbertura) == 0 || strspn(dadosCliente->dataAbertura, " ") == strlen(dadosCliente->dataAbertura));
 
-    printf("Dados Relevantes para Cadastro: ");
-    scanf(" %[^\n]s", dadosCliente->dadosRelevantes);
-    if (strlen(dadosCliente->dadosRelevantes) == 0 || strspn(dadosCliente->dadosRelevantes, " ") == strlen(dadosCliente->dadosRelevantes)) {
-        printf("Digite um dado relevante para cadastro válido: ");
-    }
+    // Dados Relevantes para Cadastro
+    do {
+        printf("Dados Relevantes para Cadastro: ");
+        scanf(" %[^\n]", dadosCliente->dadosRelevantes);
     } while (strlen(dadosCliente->dadosRelevantes) == 0 || strspn(dadosCliente->dadosRelevantes, " ") == strlen(dadosCliente->dadosRelevantes));
 
     // Criptografando dados do cliente
@@ -544,7 +531,7 @@ void exibirMenuTodo()
         case 7:
             printf("Saindo do sistema...\n");
             printf("Sistema e documentacao desenvolvido por Lucas Vacari e Eduardo Kenzo\n");
-            printf("Versão do sistema 1.5\n");
+            printf("Versão do sistema 1.5.1\n");
             break;
         case 8:
             if (strlen(novoCliente.nomeResponsavel) > 0)
