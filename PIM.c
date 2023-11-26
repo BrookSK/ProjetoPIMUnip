@@ -87,9 +87,24 @@ int realizarLogin()
 
     printf("=== Login ===\n");
     printf("Usuario: ");
-    scanf("%s", usuario);
+
+    // Loop para garantir que o usuário não digite uma string vazia ou apenas espaços em branco
+    do {
+        scanf("%19s", usuario); // Limitando a leitura para 19 caracteres para prevenir buffer overflow
+        if (strlen(usuario) == 0 || strspn(usuario, " ") == strlen(usuario)) {
+            printf("Digite um nome de usuário válido: ");
+        }
+    } while (strlen(usuario) == 0 || strspn(usuario, " ") == strlen(usuario));
+
     printf("Senha: ");
-    scanf("%s", senha);
+
+    // Loop para garantir que a senha não seja vazia ou apenas espaços em branco
+    do {
+        scanf("%19s", senha); // Limitando a leitura para 19 caracteres para prevenir buffer overflow
+        if (strlen(senha) == 0 || strspn(senha, " ") == strlen(senha)) {
+            printf("Digite uma senha válida: ");
+        }
+    } while (strlen(senha) == 0 || strspn(senha, " ") == strlen(senha));
 
     // Criptografando usuário e senha antes de comparar ou armazenar
     criptografar(usuario, 5); // Usando chave '5', por exemplo
@@ -114,11 +129,24 @@ void cadastrarFuncionario()
     }
 
     printf("\n=== Cadastro de Funcionario ===\n");
-    printf("Nome: ");
-    scanf(" %[^\n]s", funcionarios[numFuncionarios].nome);
 
-    printf("Cargo: ");
-    scanf(" %[^\n]s", funcionarios[numFuncionarios].cargo);
+    // Loop para garantir que o usuário não digite uma string vazia ou apenas espaços em branco para o nome
+    do {
+        printf("Nome: ");
+        scanf(" %[^\n]s", funcionarios[numFuncionarios].nome);
+        if (strlen(funcionarios[numFuncionarios].nome) == 0 || strspn(funcionarios[numFuncionarios].nome, " ") == strlen(funcionarios[numFuncionarios].nome)) {
+            printf("Digite um nome válido: ");
+        }
+    } while (strlen(funcionarios[numFuncionarios].nome) == 0 || strspn(funcionarios[numFuncionarios].nome, " ") == strlen(funcionarios[numFuncionarios].nome));
+
+    // Loop para garantir que o usuário não digite uma string vazia ou apenas espaços em branco para o cargo
+    do {
+        printf("Cargo: ");
+        scanf(" %[^\n]s", funcionarios[numFuncionarios].cargo);
+        if (strlen(funcionarios[numFuncionarios].cargo) == 0 || strspn(funcionarios[numFuncionarios].cargo, " ") == strlen(funcionarios[numFuncionarios].cargo)) {
+            printf("Digite um cargo válido: ");
+        }
+    } while (strlen(funcionarios[numFuncionarios].cargo) == 0 || strspn(funcionarios[numFuncionarios].cargo, " ") == strlen(funcionarios[numFuncionarios].cargo));
 
     // Adicione outras informações relevantes do funcionário
     // Criptografando nome e cargo do funcionário
@@ -135,42 +163,94 @@ void cadastrarDadosIndustriaCliente(DadosIndustriaCliente *dadosCliente)
     printf("\n=== Cadastro de Dados da Industria do Cliente ===\n");
     printf("Nome do Responsavel: ");
     scanf(" %[^\n]s", dadosCliente->nomeResponsavel);
+    if (strlen(dadosCliente->nomeResponsavel) == 0 || strspn(dadosCliente->nomeResponsavel, " ") == strlen(dadosCliente->nomeResponsavel)) {
+        printf("Digite um nome de responsável válido: ");
+    }
+    } while (strlen(dadosCliente->nomeResponsavel) == 0 || strspn(dadosCliente->nomeResponsavel, " ") == strlen(dadosCliente->nomeResponsavel));
 
     printf("Nome da Empresa: ");
     scanf(" %[^\n]s", dadosCliente->nomeEmpresa);
+    if (strlen(dadosCliente->nomeEmpresa) == 0 || strspn(dadosCliente->nomeEmpresa, " ") == strlen(dadosCliente->nomeEmpresa)) {
+        printf("Digite um nome da empresa válido: ");
+    }
+    } while (strlen(dadosCliente->nomeEmpresa) == 0 || strspn(dadosCliente->nomeEmpresa, " ") == strlen(dadosCliente->nomeEmpresa));
 
     printf("CNPJ: ");
     scanf(" %[^\n]s", dadosCliente->cnpj);
+    if (strlen(dadosCliente->cnpj) == 0 || strspn(dadosCliente->cnpj, " ") == strlen(dadosCliente->cnpj)) {
+        printf("Digite um CNPJ válido: ");
+    }
+    } while (strlen(dadosCliente->cnpj) == 0 || strspn(dadosCliente->cnpj, " ") == strlen(dadosCliente->cnpj));
 
     printf("Razao Social: ");
     scanf(" %[^\n]s", dadosCliente->razaoSocial);
+    if (strlen(dadosCliente->razaoSocial) == 0 || strspn(dadosCliente->razaoSocial, " ") == strlen(dadosCliente->razaoSocial)) {
+        printf("Digite uma razao social válido: ");
+    }
+    } while (strlen(dadosCliente->razaoSocial) == 0 || strspn(dadosCliente->razaoSocial, " ") == strlen(dadosCliente->razaoSocial));
 
     printf("Nome Fantasia: ");
     scanf(" %[^\n]s", dadosCliente->nomeFantasia);
+    if (strlen(dadosCliente->nomeFantasia) == 0 || strspn(dadosCliente->nomeFantasia, " ") == strlen(dadosCliente->nomeFantasia)) {
+        printf("Digite um nome fantasia válido: ");
+    }
+    } while (strlen(dadosCliente->nomeFantasia) == 0 || strspn(dadosCliente->nomeFantasia, " ") == strlen(dadosCliente->nomeFantasia));
 
     printf("Telefone: ");
     scanf(" %[^\n]s", dadosCliente->telefone);
+    if (strlen(dadosCliente->telefone) == 0 || strspn(dadosCliente->telefone, " ") == strlen(dadosCliente->telefone)) {
+        printf("Digite um telefone válido: ");
+    }
+    } while (strlen(dadosCliente->telefone) == 0 || strspn(dadosCliente->telefone, " ") == strlen(dadosCliente->telefone));
 
     printf("Endereco: ");
     scanf(" %[^\n]s", dadosCliente->endereco);
+    if (strlen(dadosCliente->endereco) == 0 || strspn(dadosCliente->endereco, " ") == strlen(dadosCliente->endereco)) {
+        printf("Digite um endereco válido: ");
+    }
+    } while (strlen(dadosCliente->endereco) == 0 || strspn(dadosCliente->endereco, " ") == strlen(dadosCliente->endereco));
 
     printf("Cidade: ");
     scanf(" %[^\n]s", dadosCliente->cidade);
+    if (strlen(dadosCliente->cidade) == 0 || strspn(dadosCliente->cidade, " ") == strlen(dadosCliente->cidade)) {
+        printf("Digite uma cidade válido: ");
+    }
+    } while (strlen(dadosCliente->cidade) == 0 || strspn(dadosCliente->cidade, " ") == strlen(dadosCliente->cidade));
 
     printf("Estado: ");
     scanf(" %[^\n]s", dadosCliente->estado);
+    if (strlen(dadosCliente->estado) == 0 || strspn(dadosCliente->estado, " ") == strlen(dadosCliente->estado)) {
+        printf("Digite um estado válido: ");
+    }
+    } while (strlen(dadosCliente->estado) == 0 || strspn(dadosCliente->estado, " ") == strlen(dadosCliente->estado));
 
     printf("CEP: ");
     scanf(" %[^\n]s", dadosCliente->cep);
+    if (strlen(dadosCliente->cep) == 0 || strspn(dadosCliente->cep, " ") == strlen(dadosCliente->cep)) {
+        printf("Digite um CEP válido: ");
+    }
+    } while (strlen(dadosCliente->cep) == 0 || strspn(dadosCliente->cep, " ") == strlen(dadosCliente->cep));
 
     printf("E-mail: ");
     scanf(" %[^\n]s", dadosCliente->email);
+    if (strlen(dadosCliente->email) == 0 || strspn(dadosCliente->email, " ") == strlen(dadosCliente->email)) {
+        printf("Digite um e-mail válido: ");
+    }
+    } while (strlen(dadosCliente->email) == 0 || strspn(dadosCliente->email, " ") == strlen(dadosCliente->email));
 
     printf("Data de Abertura: ");
     scanf(" %[^\n]s", dadosCliente->dataAbertura);
+    if (strlen(dadosCliente->dataAbertura) == 0 || strspn(dadosCliente->dataAbertura, " ") == strlen(dadosCliente->dataAbertura)) {
+        printf("Digite uam data de abertura válido: ");
+    }
+    } while (strlen(dadosCliente->dataAbertura) == 0 || strspn(dadosCliente->dataAbertura, " ") == strlen(dadosCliente->dataAbertura));
 
     printf("Dados Relevantes para Cadastro: ");
     scanf(" %[^\n]s", dadosCliente->dadosRelevantes);
+    if (strlen(dadosCliente->dadosRelevantes) == 0 || strspn(dadosCliente->dadosRelevantes, " ") == strlen(dadosCliente->dadosRelevantes)) {
+        printf("Digite um dado relevante para cadastro válido: ");
+    }
+    } while (strlen(dadosCliente->dadosRelevantes) == 0 || strspn(dadosCliente->dadosRelevantes, " ") == strlen(dadosCliente->dadosRelevantes));
 
     // Criptografando dados do cliente
     criptografar(dadosCliente->nomeResponsavel, 7); // Usando chave '7', por exemplo
@@ -190,7 +270,7 @@ void cadastrarDadosIndustriaCliente(DadosIndustriaCliente *dadosCliente)
     printf("\nCadastro realizado com sucesso!\n");
 }
 
-// Craindo e setando valores ded quantidade de residuos e valores de custo
+// Craindo e setando valores de quantidade de resíduos e valores de custo
 void criaValoresEdados(QuantidadeValor *dadosValores)
 {
     printf("\n=== Cadastro de Valores ===\n");
@@ -199,13 +279,16 @@ void criaValoresEdados(QuantidadeValor *dadosValores)
     while (!entradaValida)
     {
         printf("Digite a quantidade de residuos: ");
-        if (scanf("%d", &dadosValores->quantidadeResiduos[0]) != 1)
+        if (scanf("%d", &dadosValores->quantidadeResiduos[0]) != 1 || getchar() == '\n')
         {
             printf("Entrada invalida. Digite um numero.\n");
             // Limpar o buffer do scanf para evitar loops infinitos
             int c;
-            while ((c = getchar()) != '\n' && c != EOF)
-                ;
+            while ((c = getchar()) != '\n' && c != EOF);
+        }
+        else if (dadosValores->quantidadeResiduos[0] <= 0)
+        {
+            printf("Digite um valor maior que zero.\n");
         }
         else
         {
@@ -217,13 +300,16 @@ void criaValoresEdados(QuantidadeValor *dadosValores)
     while (!entradaValida)
     {
         printf("Digite o valor de custo: ");
-        if (scanf("%f", &dadosValores->valorCusto[0]) != 1)
+        if (scanf("%f", &dadosValores->valorCusto[0]) != 1 || getchar() == '\n')
         {
             printf("Entrada invalida. Digite um numero.\n");
             // Limpar o buffer do scanf para evitar loops infinitos
             int c;
-            while ((c = getchar()) != '\n' && c != EOF)
-                ;
+            while ((c = getchar()) != '\n' && c != EOF);
+        }
+        else if (dadosValores->valorCusto[0] <= 0)
+        {
+            printf("Digite um valor maior que zero.\n");
         }
         else
         {
@@ -347,10 +433,10 @@ void exibirMenuLogado()
             }
             break;
         case 4:
-            printf("teste exemplo...\n");
+            printf("Ainda não disponivel...\n");
             break;
         case 5:
-            printf("teste exemplo...\n");
+            printf("Ainda não disponivel...\n");
             break;
         case 6:
             printf("Saindo do menu logado...\n");
@@ -458,7 +544,7 @@ void exibirMenuTodo()
         case 7:
             printf("Saindo do sistema...\n");
             printf("Sistema e documentacao desenvolvido por Lucas Vacari e Eduardo Kenzo\n");
-            printf("Versão do sistema 1.4\n");
+            printf("Versão do sistema 1.5\n");
             break;
         case 8:
             if (strlen(novoCliente.nomeResponsavel) > 0)
