@@ -151,7 +151,7 @@ void cadastrarDadosIndustriaCliente(DadosIndustriaCliente *dadosCliente)
     printf("Telefone: ");
     scanf(" %[^\n]s", dadosCliente->telefone);
 
-    printf("Endereço: ");
+    printf("Endereco: ");
     scanf(" %[^\n]s", dadosCliente->endereco);
 
     printf("Cidade: ");
@@ -316,7 +316,6 @@ void exibirMenuLogado()
         printf("5. Gerar relatorio global\n");
         printf("6. Logout\n");
         printf("Opcao: ");
-        scanf("%d", &opcao);
 
         while (scanf("%d", &opcao) != 1)
         {
@@ -385,7 +384,6 @@ void exibirMenuTodo()
         printf("7. Sair do sistema\n");
         printf("8. Mostrar dados\n");
         printf("Opcao: ");
-        scanf("%d", &opcao);
 
         while (scanf("%d", &opcao) != 1)
         {
