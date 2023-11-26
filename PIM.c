@@ -86,7 +86,7 @@ int realizarLogin()
     char senha[20];
 
     printf("=== Login ===\n");
-    printf("Usuário: ");
+    printf("Usuario: ");
     scanf("%s", usuario);
     printf("Senha: ");
     scanf("%s", senha);
@@ -109,11 +109,11 @@ void cadastrarFuncionario()
 {
     if (numFuncionarios >= MAX_FUNCIONARIOS)
     {
-        printf("Limite de funcionários atingido. Não é possível cadastrar mais.\n");
+        printf("Limite de funcionarios atingido. Nao é possivel cadastrar mais.\n");
         return;
     }
 
-    printf("\n=== Cadastro de Funcionário ===\n");
+    printf("\n=== Cadastro de Funcionario ===\n");
     printf("Nome: ");
     scanf(" %[^\n]s", funcionarios[numFuncionarios].nome);
 
@@ -126,14 +126,14 @@ void cadastrarFuncionario()
     criptografar(funcionarios[numFuncionarios].cargo, 3); // Mesma chave para cargo
 
     numFuncionarios++;
-    printf("Funcionário cadastrado com sucesso!\n");
+    printf("Funcionario cadastrado com sucesso!\n");
 }
 
 // Função para cadastrar um novo cliente
 void cadastrarDadosIndustriaCliente(DadosIndustriaCliente *dadosCliente)
 {
-    printf("\n=== Cadastro de Dados da Indústria do Cliente ===\n");
-    printf("Nome do Responsável: ");
+    printf("\n=== Cadastro de Dados da Industria do Cliente ===\n");
+    printf("Nome do Responsavel: ");
     scanf(" %[^\n]s", dadosCliente->nomeResponsavel);
 
     printf("Nome da Empresa: ");
@@ -142,7 +142,7 @@ void cadastrarDadosIndustriaCliente(DadosIndustriaCliente *dadosCliente)
     printf("CNPJ: ");
     scanf(" %[^\n]s", dadosCliente->cnpj);
 
-    printf("Razão Social: ");
+    printf("Razao Social: ");
     scanf(" %[^\n]s", dadosCliente->razaoSocial);
 
     printf("Nome Fantasia: ");
@@ -201,7 +201,7 @@ void criaValoresEdados(QuantidadeValor *dadosValores)
         printf("Digite a quantidade de residuos: ");
         if (scanf("%d", &dadosValores->quantidadeResiduos[0]) != 1)
         {
-            printf("Entrada inválida. Digite um número.\n");
+            printf("Entrada invalida. Digite um numero.\n");
             // Limpar o buffer do scanf para evitar loops infinitos
             int c;
             while ((c = getchar()) != '\n' && c != EOF)
@@ -219,7 +219,7 @@ void criaValoresEdados(QuantidadeValor *dadosValores)
         printf("Digite o valor de custo: ");
         if (scanf("%f", &dadosValores->valorCusto[0]) != 1)
         {
-            printf("Entrada inválida. Digite um número.\n");
+            printf("Entrada invalida. Digite um numero.\n");
             // Limpar o buffer do scanf para evitar loops infinitos
             int c;
             while ((c = getchar()) != '\n' && c != EOF)
@@ -265,11 +265,11 @@ void relatorioClienteIndividual(int indiceCliente)
 {
     ClienteDados cliente = clientes[indiceCliente];
 
-    printf("\n=== Relatório do Cliente ===\n");
-    printf("Nome do Responsável: %s\n", cliente.dados.nomeResponsavel);
+    printf("\n=== Relatorio do Cliente ===\n");
+    printf("Nome do Responsavel: %s\n", cliente.dados.nomeResponsavel);
     // Exibir outras informações relevantes do cliente
 
-    printf("Quantidade de resíduos tratados no último semestre: %d\n", cliente.quantidadeResiduosSemestral);
+    printf("Quantidade de residuos tratados no ultimo semestre: %d\n", cliente.quantidadeResiduosSemestral);
     printf("Gastos mensais: %.2f\n", cliente.gastosMensais);
 }
 
@@ -288,10 +288,10 @@ void relatorioGlobal()
         }
     }
 
-    printf("\n=== Relatório Global ===\n");
-    printf("Cliente com maior quantidade de resíduos tratados:\n");
-    printf("Nome do Responsável: %s\n", clientes[indiceMaiorQuantidade].dados.nomeResponsavel);
-    printf("Quantidade de resíduos tratados: %d\n", clientes[indiceMaiorQuantidade].quantidadeResiduosSemestral);
+    printf("\n=== Relatorio Global ===\n");
+    printf("Cliente com maior quantidade de residuos tratados:\n");
+    printf("Nome do Responsavel: %s\n", clientes[indiceMaiorQuantidade].dados.nomeResponsavel);
+    printf("Quantidade de residuos tratados: %d\n", clientes[indiceMaiorQuantidade].quantidadeResiduosSemestral);
 
     // Outras análises e relatórios globais podem ser gerados da mesma maneira
 }
@@ -310,17 +310,17 @@ void exibirMenuLogado()
     {
         printf("\n=== Menu Logado ===\n");
         printf("1. Cadastrar Cliente\n");
-        printf("2. Cadastrar Funcionário\n");
+        printf("2. Cadastrar Funcionario\n");
         printf("3. Cadastrar/Atualizar dados mensais\n");
-        printf("4. Gerar relatório do cliente\n");
-        printf("5. Gerar relatório global\n");
+        printf("4. Gerar relatorio do cliente\n");
+        printf("5. Gerar relatorio global\n");
         printf("6. Logout\n");
-        printf("Opção: ");
+        printf("Opcao: ");
         scanf("%d", &opcao);
 
         while (scanf("%d", &opcao) != 1)
         {
-            printf("Entrada inválida. Digite um número das opções do meunu.\n");
+            printf("Entrada invalida. Digite um numero das opcoes do menu.\n");
             // Limpar o buffer do scanf para evitar loops infinitos
             int c;
             while ((c = getchar()) != '\n' && c != EOF);
@@ -348,16 +348,16 @@ void exibirMenuLogado()
             }
             break;
         case 4:
-            printf("teste...\n");
+            printf("teste exemplo...\n");
             break;
         case 5:
-            printf("teste...\n");
+            printf("teste exemplo...\n");
             break;
         case 6:
             printf("Saindo do menu logado...\n");
             break;
         default:
-            printf("Opção inválida. Tente novamente.\n");
+            printf("Opção invalida. Tente novamente.\n");
             break;
         }
     } while (opcao != 6);
@@ -371,25 +371,25 @@ void exibirMenuTodo()
     // Declaração da variável para armazenar os dados dos novos valores
     QuantidadeValor dadosValores = {{0}, {0}}; // Inicializando com zero os valores
 
-    printf("Bem-vindo ao Sistema de Gestão de Resíduos!\n");
+    printf("Bem-vindo ao Sistema de Gestao de Residuos!\n");
 
     do
     {
         printf("\n=== Menu Principal ===\n");
         printf("1. Login\n");
         printf("2. Cadastrar Cliente\n");
-        printf("3. Cadastrar Funcionário\n");
+        printf("3. Cadastrar Funcionario\n");
         printf("4. Cadastrar/Atualizar dados mensais\n");
-        printf("5. Gerar relatório do cliente\n");
-        printf("6. Gerar relatório global\n");
+        printf("5. Gerar relatorio do cliente\n");
+        printf("6. Gerar relatorio global\n");
         printf("7. Sair do sistema\n");
         printf("8. Mostrar dados\n");
-        printf("Opção: ");
+        printf("Opcao: ");
         scanf("%d", &opcao);
 
         while (scanf("%d", &opcao) != 1)
         {
-            printf("Entrada inválida. Digite um número das opções do meunu.\n");
+            printf("Entrada invalida. Digite um numero das opções do meunu.\n");
             // Limpar o buffer do scanf para evitar loops infinitos
             int c;
             while ((c = getchar()) != '\n' && c != EOF);
@@ -404,7 +404,7 @@ void exibirMenuTodo()
             }
             else
             {
-                printf("Faça login\n");
+                printf("Faca login\n");
             }
             break;
         case 2:
@@ -414,7 +414,7 @@ void exibirMenuTodo()
             }
             else
             {
-                printf("Faça login\n");
+                printf("Faca login\n");
             }
             break;
         case 3:
@@ -424,7 +424,7 @@ void exibirMenuTodo()
             }
             else
             {
-                printf("Faça login\n");
+                printf("Faca login\n");
             }
             break;
         case 4:
@@ -434,7 +434,7 @@ void exibirMenuTodo()
             }
             else
             {
-                printf("Faça login\n");
+                printf("Faca login\n");
             }
             break;
         case 5:
@@ -444,7 +444,7 @@ void exibirMenuTodo()
             }
             else
             {
-                printf("Faça login\n");
+                printf("Faca login\n");
             }
             break;
         case 6:
@@ -454,17 +454,18 @@ void exibirMenuTodo()
             }
             else
             {
-                printf("Faça login\n");
+                printf("Faca login\n");
             }
             break;
         case 7:
             printf("Saindo do sistema...\n");
+            printf("Sistema e documentacao desenvolvido por Lucas Vacari e Eduardo Kenzo\n");
             break;
         case 8:
             if (strlen(novoCliente.nomeResponsavel) > 0)
             {
                 descriptografar(novoCliente.nomeResponsavel, 7); // Supondo que '7' foi a chave usada para criptografar
-                printf("Nome do Responsável: %s\n", novoCliente.nomeResponsavel);
+                printf("Nome do Responsavel: %s\n", novoCliente.nomeResponsavel);
             }
             else
             {
@@ -472,7 +473,7 @@ void exibirMenuTodo()
             }
             break;
         default:
-            printf("Opção inválida. Tente novamente.\n");
+            printf("Opção invalida. Tente novamente.\n");
             break;
         }
     } while (opcao != 7);
