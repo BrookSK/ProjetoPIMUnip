@@ -303,24 +303,79 @@ void criaValoresEdados(QuantidadeValor *dadosValores)
 // Função para atualizar as quantidades de resíduos ambientais
 void atualizarDadosMensais(int quantidadeResiduos, float valorCusto)
 {
-    // Lógica para atualizar os dados mensais (quantidade de resíduos e valor estimado de custo)
+    // Exibindo os valores atuais
+    printf("Valores atuais:\nQuantidade de Residuos: %d\nValor de Custo: %.2f\n\n", quantidadeResiduos, valorCusto);
+    int opcao;
+    printf("Deseja criar um novo arquivo com os dados mensais? (1 - Sim / 2 - Não): ");
+    scanf("%d", &opcao);
 
-    // Aqui você pode realizar cálculos, interações com o usuário, etc.
-    // Suponha que os novos valores sejam passados como parâmetros (quantidadeResiduos e valorCusto)
+    if (opcao == 1) {
+        int quantidadeResiduos;
+        float valorCusto;
 
-    // Agora, vamos salvar esses dados em um arquivo de forma criptografada
-    FILE *arquivo;
-    arquivo = fopen("dados_mensais.txt", "w");
+        // Abre o arquivo para leitura
+        FILE *arquivo = fopen("dados_mensais.txt", "r");
 
-    // Criptografando e salvando os dados no arquivo
-    char textoCriptografado[100]; // Tamanho arbitrário para acomodar os dados
-    sprintf(textoCriptografado, "Residuos: %d\nCusto: %.2f", quantidadeResiduos, valorCusto);
-    criptografar(textoCriptografado, 9); // Usando uma chave de criptografia '9' (pode ser qualquer valor)
+        if (arquivo != NULL) {
+            // Se o arquivo existe, lê os valores atuais e exibe
+            fscanf(arquivo, "%d %f", &quantidadeResiduos, &valorCusto);
+            fclose(arquivo);
 
-    fprintf(arquivo, "%s", textoCriptografado);
-    fclose(arquivo);
+            // Exibe os valores atuais
+            printf("Valores atuais:\nQuantidade de Residuos: %d\nValor de Custo: %.2f\n\n", quantidadeResiduos, valorCusto);
 
-    printf("Dados atualizados e salvos com sucesso!\n");
+            // Cria um novo arquivo descriptografando e exibe os valores
+            printf("Criando um novo arquivo com os valores descriptografados...\n");
+            descriptografar("dados_mensais.txt", 9);
+
+            // Exibe os valores descriptografados
+            arquivo = fopen("dados_mensais.txt", "r");
+            if (arquivo != NULL) {
+                fscanf(arquivo, "%d %f", &quantidadeResiduos, &valorCusto);
+                fclose(arquivo);
+                printf("Valores descriptografados:\nQuantidade de Residuos: %d\nValor de Custo: %.2f\n\n", quantidadeResiduos, valorCusto);
+            } else {
+                printf("Erro ao abrir o arquivo para leitura.\n");
+            }
+        } else {
+            printf("Arquivo não encontrado. Criando um novo arquivo...\n");
+        }
+
+        // Abre o arquivo para escrita e escreve os valores
+        arquivo = fopen("dados_mensais.txt", "w");
+        if (arquivo != NULL) {
+            printf("Digite a quantidade de residuos: ");
+            scanf("%d", &quantidadeResiduos);
+            printf("Digite o valor de custo: ");
+            scanf("%f", &valorCusto);
+            
+            fprintf(arquivo, "%d %.2f", quantidadeResiduos, valorCusto);
+            fclose(arquivo);
+            
+            printf("Dados atualizados e salvos com sucesso!\n");
+        } else {
+            printf("Erro ao criar o arquivo.\n");
+        }
+    } else if (opcao == 2) {
+        int quantidadeResiduos;
+        float valorCusto;
+
+        // Abre o arquivo para leitura
+        FILE *arquivo = fopen("dados_mensais.txt", "r");
+
+        if (arquivo != NULL) {
+            // Se o arquivo existe, lê os valores atuais e exibe
+            fscanf(arquivo, "%d %f", &quantidadeResiduos, &valorCusto);
+            fclose(arquivo);
+
+            // Exibe os valores atuais
+            printf("Valores atuais:\nQuantidade de Residuos: %d\nValor de Custo: %.2f\n\n", quantidadeResiduos, valorCusto);
+        } else {
+            printf("Arquivo não encontrado.\n");
+        }
+    } else {
+        printf("Opção inválida.\n");
+    }
 }
 
 // Função para gerar relatório individual de um cliente
