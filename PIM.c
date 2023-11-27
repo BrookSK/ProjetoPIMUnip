@@ -42,6 +42,8 @@ typedef struct
 Funcionario funcionarios[MAX_FUNCIONARIOS];
 int numFuncionarios = 0;
 
+#define MAX_LEN 50
+
 // Estrutura para representar dados dos clientes
 typedef struct
 {
@@ -402,40 +404,73 @@ void atualizarOuCadastrar(QuantidadeValor *dadosValores) {
     }
 }
 
-// Função para gerar relatório individual de um cliente
-void relatorioClienteIndividual(int indiceCliente)
+// Função para criar ou visualizar relatório
+void relatorio(DadosIndustriaCliente *novoCliente, QuantidadeValor *dadosValores)
 {
-    ClienteDados cliente = clientes[indiceCliente];
+    int opcao;
 
-    printf("\n=== Relatorio do Cliente ===\n");
-    printf("Nome do Responsavel: %s\n", cliente.dados.nomeResponsavel);
-    // Exibir outras informações relevantes do cliente
+    // Pergunta ao usuário se ele quer criar um arquivo de relatório ou apenas visualizar as informações
+    printf("Deseja criar um arquivo de relatório, ele ira substituir o arquivo antigo caso ja tenha criado? (1 - Sim / 2 - Não): ");
+    scanf("%d", &opcao);
 
-    printf("Quantidade de residuos tratados no ultimo semestre: %d\n", cliente.quantidadeResiduosSemestral);
-    printf("Gastos mensais: %.2f\n", cliente.gastosMensais);
-}
-
-// Função para gerar relatório global
-void relatorioGlobal()
-{
-    // Lógica para análise dos dados e geração do relatório global
-
-    // Exemplo: Encontrar cliente com maior quantidade de resíduos tratados
-    int indiceMaiorQuantidade = 0;
-    for (int i = 1; i < numClientes; i++)
+    if (opcao == 1)
     {
-        if (clientes[i].quantidadeResiduosSemestral > clientes[indiceMaiorQuantidade].quantidadeResiduosSemestral)
+        // Cria um novo arquivo de relatório
+        FILE *relatorioArquivo = fopen("relatorio.txt", "w");
+        if (relatorioArquivo != NULL)
         {
-            indiceMaiorQuantidade = i;
+            // Escreve as informações no arquivo de relatório
+            fprintf(relatorioArquivo, "Relatório:\n");
+
+            // Verifica se o cliente foi cadastrado
+            if (strlen(novoCliente->nomeResponsavel) > 0)
+            {
+                descriptografar(novoCliente->nomeResponsavel, 7);
+                fprintf(relatorioArquivo, "Nome do Responsável: %s\n", novoCliente->nomeResponsavel);
+            }
+            else
+            {
+                printf("Cadastre um cliente primeiro!\n");
+                fclose(relatorioArquivo);
+                return;
+            }
+
+            fprintf(relatorioArquivo, "Quantidade de Resíduos Tratados: %d\n", dadosValores->quantidadeResiduos[0]);
+            fprintf(relatorioArquivo, "Valor de Custo: %.2f\n", dadosValores->valorCusto[0]);
+
+            // Fecha o arquivo de relatório
+            fclose(relatorioArquivo);
+
+            printf("Relatório criado com sucesso!\n");
+            printf("Saia do sistema para ler o arquivo!\n");
+        }
+        else
+        {
+            printf("Erro ao criar o arquivo de relatório.\n");
         }
     }
+    else if (opcao == 2)
+    {
+        // Visualiza as informações sem criar um arquivo de relatório
+        // Verifica se o cliente foi cadastrado
+        if (strlen(novoCliente->nomeResponsavel) > 0)
+        {
+            descriptografar(novoCliente->nomeResponsavel, 7);
+            printf("Nome do Responsável: %s\n", novoCliente->nomeResponsavel);
+        }
+        else
+        {
+            printf("Cadastre um cliente primeiro!\n");
+            return;
+        }
 
-    printf("\n=== Relatorio Global ===\n");
-    printf("Cliente com maior quantidade de residuos tratados:\n");
-    printf("Nome do Responsavel: %s\n", clientes[indiceMaiorQuantidade].dados.nomeResponsavel);
-    printf("Quantidade de residuos tratados: %d\n", clientes[indiceMaiorQuantidade].quantidadeResiduosSemestral);
-
-    // Outras análises e relatórios globais podem ser gerados da mesma maneira
+        printf("Teste:\nQuantidade de Resíduos Tratados: %d\n", dadosValores->quantidadeResiduos[0]);
+        printf("Teste:\nValor de Custo: %.2f\n", dadosValores->valorCusto[0]);
+    }
+    else
+    {
+        printf("Opção inválida.\n");
+    }
 }
 
 // Função para exibir o menu para o usuario logado
@@ -454,9 +489,8 @@ void exibirMenuLogado()
         printf("1. Cadastrar Cliente\n");
         printf("2. Cadastrar Funcionario\n");
         printf("3. Cadastrar/Atualizar dados mensais\n");
-        printf("4. Gerar relatorio do cliente\n");
-        printf("5. Gerar relatorio global\n");
-        printf("6. Logout\n");
+        printf("4. Gerar relatorio\n");
+        printf("5. Logout\n");
         printf("Opcao: ");
 
         while (scanf("%d", &opcao) != 1)
@@ -484,19 +518,16 @@ void exibirMenuLogado()
             }
             break;
         case 4:
-            printf("Ainda não disponivel...\n");
+            relatorio(&novoCliente, &dadosValores);
             break;
         case 5:
-            printf("Ainda não disponivel...\n");
-            break;
-        case 6:
             printf("Saindo do menu logado...\n");
             break;
         default:
             printf("Opção invalida. Tente novamente.\n");
             break;
         }
-    } while (opcao != 6);
+    } while (opcao != 5);
 }
 
 // Função para exibir o menu com todas as opções possiveis
@@ -516,10 +547,9 @@ void exibirMenuTodo()
         printf("2. Cadastrar Cliente\n");
         printf("3. Cadastrar Funcionario\n");
         printf("4. Cadastrar/Atualizar dados mensais\n");
-        printf("5. Gerar relatorio do cliente\n");
-        printf("6. Gerar relatorio global\n");
-        printf("7. Sair do sistema\n");
-        printf("8. Mostrar dados\n");
+        printf("5. Gerar relatorio\n");
+        printf("6. Sair do sistema\n");
+        printf("7. Mostrar dados\n");
         printf("Opcao: ");
 
         while (scanf("%d", &opcao) != 1)
@@ -583,21 +613,11 @@ void exibirMenuTodo()
             }
             break;
         case 6:
-            if (realizarLogin() == 1)
-            {
-                exibirMenuLogado();
-            }
-            else
-            {
-                printf("Faca login\n");
-            }
-            break;
-        case 7:
             printf("Saindo do sistema...\n");
             printf("Sistema e documentacao desenvolvido por Lucas Vacari e Eduardo Kenzo\n");
-            printf("Versão do sistema 1.6\n");
+            printf("Versão do sistema 1.7 (beta)\n");
             break;
-        case 8:
+        case 7:
             if (strlen(novoCliente.nomeResponsavel) > 0)
             {
                 descriptografar(novoCliente.nomeResponsavel, 7); // Supondo que '7' foi a chave usada para criptografar
@@ -612,7 +632,7 @@ void exibirMenuTodo()
             printf("Opção invalida. Tente novamente.\n");
             break;
         }
-    } while (opcao != 7);
+    } while (opcao != 6);
 }
 
 // Função principal
