@@ -78,6 +78,10 @@ void descriptografar(char *texto, int chave)
     criptografar(texto, 26 - chave); // A descriptografia é o inverso da criptografia com a chave negativa
 }
 
+// Protótipos de funções
+void descriptografar(char *dados, int chave);
+void atualizarDadosMensais(int quantidadeResiduos, float valorCusto);
+
 // Função para login
 int realizarLogin()
 {
@@ -297,62 +301,48 @@ void criaValoresEdados(QuantidadeValor *dadosValores)
     criptografar((char *)&dadosValores->quantidadeResiduos[0], 9);
     criptografar((char *)&dadosValores->valorCusto[0], 9);
 
-    printf("\nCadastro realizado com sucesso!\n");
+    // Abrir o arquivo em modo de escrita
+    FILE *arquivo = fopen("dados_mensais.txt", "w");
+    if (arquivo != NULL) {
+        // Escrever os valores no arquivo
+        fprintf(arquivo, "Quantidade de Resíduos: %d\n", dadosValores->quantidadeResiduos[0]);
+        fprintf(arquivo, "Valor de Custo: %.2f\n", dadosValores->valorCusto[0]);
+        fclose(arquivo);
+        
+        printf("\nCadastro realizado com sucesso!\n");
+        printf("Os dados foram salvos no arquivo 'dados_mensais.txt'.\n");
+        printf("Saia do sistema e entre novamente para ler o arquivo!\n");
+    } else {
+        printf("\nErro ao criar o arquivo.\n");
+    }
 }
 
 // Função para atualizar as quantidades de resíduos ambientais
 void atualizarDadosMensais(int quantidadeResiduos, float valorCusto)
 {
-    // Exibindo os valores atuais
-    printf("Valores atuais:\nQuantidade de Residuos: %d\nValor de Custo: %.2f\n\n", quantidadeResiduos, valorCusto);
     int opcao;
-    printf("Deseja criar um novo arquivo com os dados mensais? (1 - Sim / 2 - Não): ");
+    printf("Deseja criar um novo arquivo de texto com os dados mensais? (1 - Sim / 2 - Não): ");
     scanf("%d", &opcao);
 
     if (opcao == 1) {
-        int quantidadeResiduos;
-        float valorCusto;
-
-        // Abre o arquivo para leitura
-        FILE *arquivo = fopen("dados_mensais.txt", "r");
-
-        if (arquivo != NULL) {
-            // Se o arquivo existe, lê os valores atuais e exibe
-            fscanf(arquivo, "%d %f", &quantidadeResiduos, &valorCusto);
-            fclose(arquivo);
-
-            // Exibe os valores atuais
-            printf("Valores atuais:\nQuantidade de Residuos: %d\nValor de Custo: %.2f\n\n", quantidadeResiduos, valorCusto);
-
-            // Cria um novo arquivo descriptografando e exibe os valores
-            printf("Criando um novo arquivo com os valores descriptografados...\n");
-            descriptografar("dados_mensais.txt", 9);
-
-            // Exibe os valores descriptografados
-            arquivo = fopen("dados_mensais.txt", "r");
-            if (arquivo != NULL) {
-                fscanf(arquivo, "%d %f", &quantidadeResiduos, &valorCusto);
-                fclose(arquivo);
-                printf("Valores descriptografados:\nQuantidade de Residuos: %d\nValor de Custo: %.2f\n\n", quantidadeResiduos, valorCusto);
-            } else {
-                printf("Erro ao abrir o arquivo para leitura.\n");
-            }
-        } else {
-            printf("Arquivo não encontrado. Criando um novo arquivo...\n");
-        }
+        // Lê os valores fornecidos pelo usuário
+        printf("Digite a quantidade de residuos: ");
+        scanf("%d", &quantidadeResiduos);
+        printf("Digite o valor de custo: ");
+        scanf("%f", &valorCusto);
 
         // Abre o arquivo para escrita e escreve os valores
-        arquivo = fopen("dados_mensais.txt", "w");
+        FILE *arquivo = fopen("dados_mensais.txt", "w");
         if (arquivo != NULL) {
-            printf("Digite a quantidade de residuos: ");
-            scanf("%d", &quantidadeResiduos);
-            printf("Digite o valor de custo: ");
-            scanf("%f", &valorCusto);
-            
-            fprintf(arquivo, "%d %.2f", quantidadeResiduos, valorCusto);
+            // Criptografa e escreve os valores no arquivo
+            criptografar((char *)&quantidadeResiduos, 9);
+            criptografar((char *)&valorCusto, 9);
+            fprintf(arquivo, "Quantidade de Resíduos: %d\n", quantidadeResiduos);
+            fprintf(arquivo, "Valor de Custo: %.2f\n", valorCusto);
             fclose(arquivo);
-            
+
             printf("Dados atualizados e salvos com sucesso!\n");
+            printf("Saia do sistema e entre novamente para ler o arquivo!\n");
         } else {
             printf("Erro ao criar o arquivo.\n");
         }
@@ -365,16 +355,50 @@ void atualizarDadosMensais(int quantidadeResiduos, float valorCusto)
 
         if (arquivo != NULL) {
             // Se o arquivo existe, lê os valores atuais e exibe
-            fscanf(arquivo, "%d %f", &quantidadeResiduos, &valorCusto);
+            fscanf(arquivo, "Quantidade de Resíduos: %d\n", &quantidadeResiduos);
+            fscanf(arquivo, "Valor de Custo: %f\n", &valorCusto);
             fclose(arquivo);
 
-            // Exibe os valores atuais
+            // Descriptografa e exibe os valores
+            descriptografar((char *)&quantidadeResiduos, 9);
+            descriptografar((char *)&valorCusto, 9);
+
             printf("Valores atuais:\nQuantidade de Residuos: %d\nValor de Custo: %.2f\n\n", quantidadeResiduos, valorCusto);
         } else {
             printf("Arquivo não encontrado.\n");
+            printf("Caso já tenha criado um arquivo, saia do sistema e entre novamente!\n");
         }
     } else {
         printf("Opção inválida.\n");
+    }
+}
+
+// Função para verificar se o arquivo existe
+bool verificaArquivo() {
+    FILE *arquivo = fopen("dados_mensais.txt", "r");
+    if (arquivo != NULL) {
+        fclose(arquivo);
+        return true;
+    }
+    return false;
+}
+
+// Função para atualizar dados mensais se o arquivo existir, caso contrário, cadastra valores
+void atualizarOuCadastrar(QuantidadeValor *dadosValores) {
+    if (verificaArquivo()) {
+        FILE *arquivo = fopen("dados_mensais.txt", "r");
+        if (arquivo != NULL) {
+            fscanf(arquivo, "%d %f", &dadosValores->quantidadeResiduos[0], &dadosValores->valorCusto[0]);
+            fclose(arquivo);
+            descriptografar((char *)&dadosValores->quantidadeResiduos[0], 9);
+            descriptografar((char *)&dadosValores->valorCusto[0], 9);
+            atualizarDadosMensais(dadosValores->quantidadeResiduos[0], dadosValores->valorCusto[0]);
+        } else {
+            printf("Erro ao abrir o arquivo para leitura.\n");
+        }
+    } else {
+        printf("O arquivo não existe. Cadastre valores primeiro!\n");
+        criaValoresEdados(dadosValores);
     }
 }
 
@@ -452,14 +476,9 @@ void exibirMenuLogado()
             cadastrarFuncionario();
             break;
         case 3:
-            if (dadosValores.quantidadeResiduos[0] != 0 && dadosValores.valorCusto[0] != 0)
-            {
-                descriptografar((char *)&dadosValores.quantidadeResiduos[0], 9);
-                descriptografar((char *)&dadosValores.valorCusto[0], 9);
-                atualizarDadosMensais(dadosValores.quantidadeResiduos[0], dadosValores.valorCusto[0]);
-            }
-            else
-            {
+            if (verificaArquivo()) {
+                atualizarOuCadastrar(&dadosValores);
+            } else {
                 printf("Cadastre valores primeiro!\n");
                 criaValoresEdados(&dadosValores);
             }
@@ -576,7 +595,7 @@ void exibirMenuTodo()
         case 7:
             printf("Saindo do sistema...\n");
             printf("Sistema e documentacao desenvolvido por Lucas Vacari e Eduardo Kenzo\n");
-            printf("Versão do sistema 1.5.2\n");
+            printf("Versão do sistema 1.6\n");
             break;
         case 8:
             if (strlen(novoCliente.nomeResponsavel) > 0)
