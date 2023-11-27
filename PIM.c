@@ -8,6 +8,8 @@
 
 #include <stdbool.h>
 
+#include <conio.h>
+
 // Estruturas e funcões anteriores...
 // Estrutura para representar os dados da indústria do cliente
 typedef struct
@@ -745,9 +747,13 @@ void exibirMenuTodo()
       }
       break;
     case 6:
-      printf("Saindo do sistema...\n");
+      printf("Saindo do sistema...\n\n");
       printf("Sistema e documentacao desenvolvido por Lucas Vacari e Eduardo Kenzo\n");
-      printf("Versao do sistema 1.7.2\n");
+      printf("Repositorio GitHub: https://github.com/BrookSK/ProjetoPIMUnip\n");
+      printf("Versao do sistema 1.7.2\n\n");
+      printf("Pressione qualquer tecla para fechar a janela...");
+      getch(); // Aguarda o pressionamento de uma tecla
+      exit(0);
       break;
     case 7:
       if (strlen(novoCliente.nomeResponsavel) > 0)
@@ -764,7 +770,7 @@ void exibirMenuTodo()
       printf("Opcao invalida. Tente novamente.\n");
       break;
     }
-  } while (opcao != 6);
+  } while (opcao != 100);
 }
 
 // Funcao principal
