@@ -682,7 +682,6 @@ void exibirMenuTodo()
     printf("4. Cadastrar/Atualizar dados mensais\n");
     printf("5. Gerar relatorio\n");
     printf("6. Sair do sistema\n");
-    printf("7. Mostrar dados\n");
     printf("Opcao: ");
 
     while (scanf("%d", &opcao) != 1)
@@ -750,21 +749,10 @@ void exibirMenuTodo()
       printf("Saindo do sistema...\n\n");
       printf("Sistema e documentacao desenvolvido por Lucas Vacari e Eduardo Kenzo\n");
       printf("Repositorio GitHub: https://github.com/BrookSK/ProjetoPIMUnip\n");
-      printf("Versao do sistema 1.7.2\n\n");
+      printf("Versao do sistema 1.7.3\n\n");
       printf("Pressione qualquer tecla para fechar a janela...");
       getch(); // Aguarda o pressionamento de uma tecla
       exit(0);
-      break;
-    case 7:
-      if (strlen(novoCliente.nomeResponsavel) > 0)
-      {
-        descriptografar(novoCliente.nomeResponsavel, 7); // Supondo que '7' foi a chave usada para criptografar
-        printf("Nome do Responsavel: %s\n", novoCliente.nomeResponsavel);
-      }
-      else
-      {
-        printf("Cadastre um cliente primeiro!\n");
-      }
       break;
     default:
       printf("Opcao invalida. Tente novamente.\n");
